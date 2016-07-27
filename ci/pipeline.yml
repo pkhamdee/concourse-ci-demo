@@ -8,28 +8,28 @@ resources:
   - name: repo-develop
     type: git
     source:
-      uri: git@github.com:making/concourse-ci-demo.git
+      uri: git@github.com:malston/concourse-ci-demo.git
       branch: develop
       private_key: {{github-private-key}}
     check_every: 10s # for demo
   - name: repo-release
     type: git
     source:
-      uri: git@github.com:making/concourse-ci-demo.git
+      uri: git@github.com:malston/concourse-ci-demo.git
       branch: release
       private_key: {{github-private-key}}
     check_every: 10s # for demo
   - name: repo-master
     type: git
     source:
-      uri: git@github.com:making/concourse-ci-demo.git
+      uri: git@github.com:malston/concourse-ci-demo.git
       branch: master
       private_key: {{github-private-key}}
     check_every: 10s # for demo
   - name: version
     type: semver
     source:
-      uri: git@github.com:making/concourse-ci-demo.git
+      uri: git@github.com:malston/concourse-ci-demo.git
       branch: version
       private_key: {{github-private-key}}
       file: version
@@ -76,10 +76,10 @@ jobs:
     public: true
     plan:
       - aggregate:
+        - get: m2
         - get: repo
           resource: repo-develop
           trigger: true
-        - get: m2
       - task: unit
         file: repo/ci/tasks/unit.yml
       - put: tracker
